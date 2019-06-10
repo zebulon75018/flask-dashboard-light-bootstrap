@@ -99,7 +99,7 @@ def register():
 def login():
     
     # define login form here
-    form = LoginForm(request.form)
+    #form = LoginForm(request.form)
 
     # Flask message injected into the page, in case of any errors
     msg = None
@@ -109,32 +109,10 @@ def login():
     page_description = 'Open-Source Flask Boilerplate, login page.'
 
     # check if both http method is POST and form is valid on submit
-    if form.validate_on_submit():
-
-        # assign form data to variables
-        username = request.form.get('username', '', type=str)
-        password = request.form.get('password', '', type=str) 
-
-        # filter User out of database through username
-        user = User.query.filter_by(user=username).first()
-
-        if user:
-            
-            if bc.check_password_hash(user.password, password):
-                login_user(user)
-                return redirect(url_for('index'))
-            else:
-                msg = "Wrong password. Please try again."
-        else:
-            msg = "Unkkown user"
-
+    
     # try to match the pages defined in -> themes/light-bootstrap/pages/
-    return render_template( 'layouts/default.html',
-                            title=page_title,
-                            content=render_template( 'pages/login.html', 
-                                                     form=form,
-                                                     msg=msg) )
-
+    return render_template( 'pages/login.html')
+                           
 # Used only for static export
 @app.route('/icons.html')
 def icons():
