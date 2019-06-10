@@ -1,0 +1,35 @@
+{% extends "layouts/default.html" %}
+
+{% macro cardicon(name) -%}
+   <div class="font-icon-detail">
+        <i class="nc-icon {{name}}"></i>
+        <p>{{name}}</p>
+    </div>
+{%- endmacro %}
+
+{% block content %}
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">100 Awesome Nucleo Icons</h4>
+                                    <p class="card-category">Handcrafted by our friends from
+                                        <a href="https://nucleoapp.com/?ref=1712">NucleoApp</a>
+                                    </p>
+                                </div>
+                                <div class="card-body all-icons">
+                                    <div class="row">
+                                    {% for icon in icons %}
+                                         {{ cardicon(icon) }}
+                                     {% endfor %}
+                                     
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

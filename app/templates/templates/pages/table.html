@@ -1,0 +1,12 @@
+{% extends "layouts/default.html" %}
+{% block content %}
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{tablemacro("title","subtitles",[[1,2,3,4],[5,6,7,8]],["1","2","3","4"])}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}
