@@ -1,0 +1,55 @@
+
+    {% macro card(header,title,content,footer) -%}
+    <div class="card">
+        <div class="card-header">
+            {{header|safe}}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{title|safe}}</h5>
+            <p class="card-text">{{content|safe}}</p>
+        </div>
+        <div class="card-footer">
+            {{footer|safe}}
+        </div>
+    </div>
+    {%- endmacro %}
+
+     {% macro siderbarmenu(url,label,icon) -%}
+    <li class="nav-item ">
+        <a class="nav-link" href="{{url}}">
+            <i class="nc-icon {{icon}}"></i>
+            <p>{{label}}</p>
+        </a>
+    </li>
+    {%- endmacro %}
+
+    {% macro tablemacro(title, subtitle, data, keys) -%}
+    <div class="card strpied-tabled-with-hover">
+            <div class="card-header ">
+                <h4 class="card-title">{{title}}</h4>
+                <p class="card-category">{{subtitle}}</p>
+            </div>
+            <div class="card-body table-full-width table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+        {% for key in keys %}
+                <th>
+                  {{key}}
+                </th>
+                {% endfor %}
+              </thead>
+              <tbody>                
+                  {% for elm in data %}
+                  <tr>
+                  {% for e in elm %}
+                  <td>
+                    {{e}}
+                  </td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}      
+              </table>
+            </div>
+          </div>
+      </div>  
+      {%- endmacro %}

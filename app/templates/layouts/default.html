@@ -1,6 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 
+    {% macro card(header,title,content,footer) -%}
+    <div class="card">
+        <div class="card-header">
+            {{header|safe}}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{title|safe}}</h5>
+            <p class="card-text">{{content|safe}}</p>
+        </div>
+        <div class="card-footer">
+            {{footer|safe}}
+        </div>
+    </div>
+    {%- endmacro %}
+
+     {% macro siderbarmenu(url,label,icon=None) -%}
+    <li class="nav-item ">
+        <a class="nav-link" href="{{url}}">
+            {% if icon %}
+            <i class="nc-icon {{icon}}"></i>
+            {% endif %}
+            <p>{{label}}</p>
+        </a>
+    </li>
+    {%- endmacro %}
+
+    {% macro tablemacro(title, subtitle, data, keys) -%}
+    <div class="card strpied-tabled-with-hover">
+            <div class="card-header ">
+                <h4 class="card-title">{{title}}</h4>
+                <p class="card-category">{{subtitle}}</p>
+            </div>
+            <div class="card-body table-full-width table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+        {% for key in keys %}
+                <th>
+                  {{key}}
+                </th>
+                {% endfor %}
+              </thead>
+              <tbody>                
+                  {% for elm in data %}
+                  <tr>
+                  {% for e in elm %}
+                  <td>
+                    {{e}}
+                  </td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}      
+              </table>
+            </div>
+          </div>
+      </div>  
+      {%- endmacro %}
+  
+      {% macro elmtask(title,checked="") -%}  
+      <tr>
+        <td>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" value="" {{checked}}>
+                    <span class="form-check-sign"></span>
+                </label>
+            </div>
+        </td>
+        <td>{{title|safe}}</td>
+        <td class="td-actions text-right">
+            <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
+                <i class="fa fa-edit"></i>
+            </button>
+            <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
+                <i class="fa fa-times"></i>
+            </button>
+        </td>
+    </tr>
+    {%- endmacro %}
+
+    {% macro alertpanel(message,type="info",close=None) -%}
+    <div class="card  card-tasks">  
+        <div class="alert alert-{{type}} alert-with-icon" data-notify="container">
+            {%if close%}
+            <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
+                <i class="nc-icon nc-simple-remove"></i>
+            </button>
+            {% endif %}
+            <span data-notify="icon" class="nc-icon nc-bell-55"></span>
+            <span data-notify="message">{{message|safe}}</span>
+        </div>
+    </div>
+    {%- endmacro %}
+
+    {% macro cardimage(title, text, imgurl=None,link=None,textlink=" ") -%}
+    <div class="card">
+        {% if imgurl %}
+            <img class="card-img-top img-fluid" src="{{imgurl}}" alt="Card image cap">
+        {% endif %}
+            <div class="card-body">
+            <h3 class="card-title">{{title|safe}}</h3>
+            <p class="card-text">{{text|safe}}</p>
+            {% if link %}
+            <a href="{{link}}" class="btn btn-primary">{{textlink|safe}}</a>
+            {% endif %}
+        </div>
+            </div>
+    {%- endmacro %}
+    
 <head>
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="/static/assets/img/apple-icon.png">
@@ -44,7 +152,7 @@
 
             {% include 'includes/navigation.html' %}
 
-            {{ content | safe }}
+            {% block content %}{% endblock %}
 
             {% include 'includes/footer.html' %}
     
